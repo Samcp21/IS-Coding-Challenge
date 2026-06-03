@@ -117,3 +117,22 @@ El ecosistema funciona bajo un modelo de delegación de responsabilidades. El vi
 
 **Esquema de Comunicación:**
 `Cliente (Vue)` ↔️ _[HTTP/REST]_ ↔️ `API Gateway (Go)` ↔️ _[gRPC/Protobuf]_ ↔️ `Math Engine (Node.js)`
+
+## 🌐 Live Demo
+
+El ecosistema completo se encuentra desplegado en una instancia de Google Cloud Platform (GCP) y es accesible públicamente.
+
+- **💻 Frontend (Vue 3):** [http://34.132.98.78](http://34.132.98.78)
+
+- **📖 API Docs (Swagger Go):** [http://34.132.98.78:8080/swagger/index.html](http://34.132.98.78:8080/swagger/index.html)
+
+### 🧪 ¿Cómo probar el flujo completo?
+
+Para evaluar la orquestación entre el Frontend, el API Gateway (Go) y el motor matemático (Node.js vía gRPC), sigue estos pasos:
+
+1. Ingresa al **Frontend** a través del enlace de arriba.
+2. Inicia sesión en el portal utilizando las credenciales maestras:
+   - **Usuario:** `root`
+   - **Contraseña:** `root`
+3. Una vez autenticado, ingresa una matriz de prueba en la interfaz (por ejemplo, una matriz de 3x3 o 4x4).
+4. Al enviar la petición, el Gateway validará tu token JWT, enviará los datos en binario (gRPC) al microservicio interno, y recibirás la matriz rotada junto con sus estadísticas matemáticas en tiempo real.
