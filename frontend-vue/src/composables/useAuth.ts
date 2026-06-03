@@ -11,7 +11,8 @@ export function useAuth() {
         errorMessage.value = '';
 
         try {
-            const response = await fetch('http://localhost:8080/api/login', {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            const response = await fetch(`${apiUrl}/login`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(credentials)

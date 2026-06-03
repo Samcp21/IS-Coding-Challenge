@@ -36,6 +36,8 @@ services:
     restart: unless-stopped
     ports:
       - "80:80"
+    env_file:
+      - ./frontend-vue/.env
     depends_on:
       - api-go
     networks:

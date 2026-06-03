@@ -19,7 +19,8 @@ export function useMatrix() {
                 throw new Error("El formato debe ser un arreglo bidimensional válido ej: [[1,2],[3,4]]");
             }
 
-            const response = await fetch('http://localhost:8080/api/matrix', {
+            const apiUrl = import.meta.env.VITE_API_URL;
+            const response = await fetch(`${apiUrl}/matrix`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
