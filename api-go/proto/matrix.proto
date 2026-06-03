@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+option go_package = "internal/infrastructure/client/pb";
+
+package matrix;
+
+service MatrixService {
+  rpc ProcessRotatedMatrix (MatrixRequest) returns (StatsResponse) {}
+}
+message MatrixRequest {
+  message Row {
+    repeated double values = 1;
+  }
+  repeated Row rows = 1;
+}
+message StatsResponse {
+  double max_value = 1;
+  double min_value = 2;
+  double average = 3;
+  double total_sum = 4;
+  bool is_diagonal = 5;
+}

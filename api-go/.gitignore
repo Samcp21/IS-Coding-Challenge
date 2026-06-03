@@ -1,0 +1,7 @@
+bin/
+.env
+coverage/
+.DS_Store
+*.log
+*.exe
+*.dll

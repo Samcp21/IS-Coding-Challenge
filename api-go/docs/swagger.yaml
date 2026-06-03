@@ -1,0 +1,106 @@
+basePath: /
+definitions:
+  http.LoginRequest:
+    properties:
+      password:
+        type: string
+      username:
+        type: string
+    type: object
+  http.MatrixRequest:
+    properties:
+      data:
+        items:
+          items:
+            format: float64
+            type: number
+          type: array
+        type: array
+    type: object
+host: localhost:8080
+info:
+  contact: {}
+  description: API en Go para la factorización QR y rotación de matrices.
+  title: API Interseguro Challenge
+  version: "1.0"
+paths:
+  /api/login:
+    post:
+      consumes:
+      - application/json
+      description: Recibe credenciales estáticas y devuelve un JWT válido por 24h.
+      parameters:
+      - description: Credenciales (root / root)
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.LoginRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Token generado exitosamente
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Credenciales inválidas
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Credenciales inválidas
+          schema:
+            additionalProperties: true
+            type: object
+      summary: Autenticar usuario
+      tags:
+      - Auth
+  /api/matrix:
+    post:
+      consumes:
+      - application/json
+      description: Aplica rotación de 90 grados y factorización QR a una matriz ingresada.
+      parameters:
+      - description: Matriz bidimensional de números
+        in: body
+        name: request
+        required: true
+        schema:
+          $ref: '#/definitions/http.MatrixRequest'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Resultados calculados
+          schema:
+            additionalProperties: true
+            type: object
+        "400":
+          description: Errores de validación o servidor
+          schema:
+            additionalProperties: true
+            type: object
+        "401":
+          description: Errores de validación o servidor
+          schema:
+            additionalProperties: true
+            type: object
+        "500":
+          description: Errores de validación o servidor
+          schema:
+            additionalProperties: true
+            type: object
+      security:
+      - BearerAuth: []
+      summary: Procesar Matriz (QR y Rotación)
+      tags:
+      - Matrix
+securityDefinitions:
+  BearerAuth:
+    description: Escribe 'Bearer ' seguido del token generado en el /login
+    in: header
+    name: Authorization
+    type: apiKey
+swagger: "2.0"

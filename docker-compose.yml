@@ -1,0 +1,46 @@
+version: "3.8"
+
+services:
+  api-node:
+    build:
+      context: ./api-node
+    container_name: talsory-api-node
+    restart: unless-stopped
+    ports:
+      - "50051:50051"
+    env_file:
+      - ./api-node/.env
+    networks:
+      - talsory-network
+
+  api-go:
+    build:
+      context: ./api-go
+    container_name: talsory-api-go
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+    env_file:
+      - ./api-go/.env
+    environment:
+      - NODE_GRPC_ADDRESS=api-node:50051
+    depends_on:
+      - api-node
+    networks:
+      - talsory-network
+
+  frontend-vue:
+    build:
+      context: ./frontend-vue
+    container_name: talsory-frontend
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    depends_on:
+      - api-go
+    networks:
+      - talsory-network
+
+networks:
+  talsory-network:
+    driver: bridge
